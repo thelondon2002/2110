@@ -1,41 +1,33 @@
 #ifndef COMMERCIAL_CLASS_H
 #define COMMERCIAL_CLASS_H
+#include "Cell.h"
+#include "SimSystem.h"
 
 #include <iostream>
-#include <fstream>
-#include <string>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 class Commercial {
-        private:
-            int population;
-            int workers;
-            char symbol = 'C';
-    
-        public:
-            int availableGoods;
-            int availableWorkers;
-            
-        char GetSymbol()
-        {
-            return symbol;
-        }
+private:
+    Cell cell;
+    int population;
+    int workers;
 
-        void IncreasePopulation() {
-        if (population == 0) {
-            if ((availableWorkers >= 1 && availableGoods >= 1) ||
-                (availableWorkers >= 1 && availableGoods >= 1)) {
-                population += 1;
-                availableWorkers -= 1;
-                availableGoods -= 1;
-            }
-        } else if (population == 1 && availableWorkers >= 1 && availableGoods >= 1) {
-            population += 1;
-            availableWorkers -= 1;
-            availableGoods -= 1;
-        }
-    }
+public:
+    int availableGoods;
+    int availableWorkers;
+
+    // Default Constructor
+    Commercial::Commercial(const Cell& cell, int population, int availableGoods, int availableWorkers) 
+    : cell(cell), population(population), availableGoods(availableGoods), availableWorkers(availableWorkers) {}
+
+
+    // Increase population based on rules
+    void Commercial::IncreasePopulation(SimSystem& simSystem, int x, int y);
+
+
 };
 
 #endif
+
